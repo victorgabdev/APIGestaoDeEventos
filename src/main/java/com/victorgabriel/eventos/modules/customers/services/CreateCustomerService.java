@@ -1,4 +1,4 @@
-package com.victorgabriel.eventos.modules.customers.useCases;
+package com.victorgabriel.eventos.modules.customers.services;
 
 import com.victorgabriel.eventos.modules.customers.entities.Customer;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CreateCustomerUseCase {
+public class CreateCustomerService {
 
     private List<Customer> customers = new ArrayList<>();
     public Customer execute(Customer customer) {

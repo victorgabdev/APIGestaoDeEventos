@@ -1,5 +1,6 @@
 package com.victorgabriel.eventos.shared.entities;
 
+import com.victorgabriel.eventos.shared.validations.ValidationUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,9 @@ public class BaseEntityUser {
     private UUID id;
     private String email;
     private String password;
+
+    public void setEmail(String email) {
+        if(!ValidationUtils.validateEmail(email)) throw new Error("Email is Invalid");
+        this.email = email;
+    }
 }

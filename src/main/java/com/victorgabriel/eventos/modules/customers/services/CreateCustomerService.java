@@ -16,10 +16,6 @@ public class CreateCustomerService {
     private ICustomerRepository customerRepository;
 
     public Customer execute(Customer customer) {
-        // validar email
-        boolean isEmailValid = ValidationUtils.validateEmail(customer.getEmail());
-        if(!isEmailValid) throw new Error("Email is Invalid");
-
         var customerExists = this.customerRepository.findByEmail(customer.getEmail());
         if(customerExists != null) throw new Error("Customer Already Exists");
 

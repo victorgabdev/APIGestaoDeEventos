@@ -2,11 +2,9 @@ package com.victorgabriel.eventos.modules.customers.services;
 
 import com.victorgabriel.eventos.modules.customers.entities.Customer;
 import com.victorgabriel.eventos.modules.customers.repositories.ICustomerRepository;
+import com.victorgabriel.eventos.shared.validations.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CreateCustomerService {
@@ -18,6 +16,10 @@ public class CreateCustomerService {
     private ICustomerRepository customerRepository;
 
     public Customer execute(Customer customer) {
+        // validar email
+        boolean isEmailValid = ValidationUtils.validateEmail(customer.getEmail());
+        if(!isEmailValid) throw new Error("Email is Invalid");
+
         var customerExists = this.customerRepository.findByEmail(customer.getEmail());
         if(customerExists != null) throw new Error("Customer Already Exists");
 

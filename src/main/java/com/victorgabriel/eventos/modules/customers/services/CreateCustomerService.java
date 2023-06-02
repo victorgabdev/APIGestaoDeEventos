@@ -18,7 +18,9 @@ public class CreateCustomerService {
     private ICustomerRepository customerRepository;
 
     public Customer execute(Customer customer) {
-        // throw new Error("Customer Already Exists");
+        var customerExists = this.customerRepository.findByEmail(customer.getEmail());
+        if(customerExists != null) throw new Error("Customer Already Exists");
+
         var customerCreated =  this.customerRepository.save(customer);
         return customerCreated;
     }

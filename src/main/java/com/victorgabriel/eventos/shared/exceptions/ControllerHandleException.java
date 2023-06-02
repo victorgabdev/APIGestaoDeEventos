@@ -1,0 +1,17 @@
+package com.victorgabriel.eventos.shared.exceptions;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.time.LocalDateTime;
+
+@RestControllerAdvice // Monitora as request e vem parar aqui toda vez que tiver uma exceção
+public class ControllerHandleException {
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<?> handle(CustomException exception) {
+        ApplicationErrors applicationError = new ApplicationErrors(exception.getMessage(), exception.getStatus().value(), LocalDateTime.now());
+        return new ResponseEntity<>(applicationError, exception.getStatus());
+    }
+}

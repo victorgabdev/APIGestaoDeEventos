@@ -1,9 +1,11 @@
 package com.victorgabriel.eventos.shared.entities;
 
+import com.victorgabriel.eventos.shared.exceptions.CustomException;
 import com.victorgabriel.eventos.shared.validations.ValidationUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -28,7 +30,7 @@ public class BaseEntityUser {
     private String password;
 
     public void setEmail(String email) {
-        if(!ValidationUtils.validateEmail(email)) throw new Error("Email is Invalid");
+        if(!ValidationUtils.validateEmail(email)) throw new CustomException("Email is Invalid", HttpStatus.UNPROCESSABLE_ENTITY);
         this.email = email;
     }
 }

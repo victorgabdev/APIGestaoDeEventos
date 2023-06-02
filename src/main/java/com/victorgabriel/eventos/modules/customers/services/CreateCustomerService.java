@@ -2,8 +2,9 @@ package com.victorgabriel.eventos.modules.customers.services;
 
 import com.victorgabriel.eventos.modules.customers.entities.Customer;
 import com.victorgabriel.eventos.modules.customers.repositories.ICustomerRepository;
-import com.victorgabriel.eventos.shared.validations.ValidationUtils;
+import com.victorgabriel.eventos.shared.exceptions.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,9 +18,8 @@ public class CreateCustomerService {
 
     public Customer execute(Customer customer) {
         var customerExists = this.customerRepository.findByEmail(customer.getEmail());
-        if(customerExists != null) throw new Error("Customer Already Exists");
+        if(customerExists != null) throw new CustomException("Customer Already Exists", HttpStatus.CONFLICT);
 
-        var customerCreated =  this.customerRepository.save(customer);
-        return customerCreated;
+        return this.customerRepository.save(customer);
     }
 }

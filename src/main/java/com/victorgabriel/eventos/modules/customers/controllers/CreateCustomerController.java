@@ -3,6 +3,7 @@ package com.victorgabriel.eventos.modules.customers.controllers;
 import com.victorgabriel.eventos.modules.customers.entities.Customer;
 import com.victorgabriel.eventos.modules.customers.services.CreateCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ public class CreateCustomerController {
     @Autowired  // injecao de dependencia
     private CreateCustomerService createCustomerService;
 
-    @RequestMapping("/")
+    @PostMapping("/")
     public Customer handle(@RequestBody Customer customer) {
         return this.createCustomerService.execute(customer);
     }

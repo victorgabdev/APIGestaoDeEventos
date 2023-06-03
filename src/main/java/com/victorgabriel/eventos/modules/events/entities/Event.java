@@ -4,6 +4,7 @@ import com.victorgabriel.eventos.modules.organizers.entities.Organizer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -26,10 +27,12 @@ public class Event {
     private BigDecimal price;
     private int quantity;
     private int availableQuantity;
+
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne()
-    @JoinColumn(name = "organizer_id")
+    @JoinColumn(name = "organizer_id", insertable = false, updatable = false)
     private Organizer organizer;
 
     @Column(name = "organizer_id")

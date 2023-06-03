@@ -21,7 +21,8 @@ public class CreateEventService {
     public Event execute(Event event) {
         //validar se organizer existe
         var existsOrganizerOfEvent = this.organizerRepository.findById(event.getOrganizerId());
-        if(existsOrganizerOfEvent.isPresent()) throw new CustomException("Organizer not Exists", HttpStatus.NOT_FOUND);
+        if(existsOrganizerOfEvent == null) throw new CustomException("Organizer not Exists", HttpStatus.NOT_FOUND);
+        if(event.getAvailableQuantity() == 0) event.setAvailableQuantity(event.getQuantity());
 
         return this.eventsRepository.save(event);
     }

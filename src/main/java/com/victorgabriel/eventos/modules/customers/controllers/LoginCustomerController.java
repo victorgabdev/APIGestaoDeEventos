@@ -4,12 +4,16 @@ import com.victorgabriel.eventos.modules.customers.dto.JWTToken;
 import com.victorgabriel.eventos.modules.customers.dto.LoginDTO;
 import com.victorgabriel.eventos.modules.customers.repositories.ICustomerRepository;
 import com.victorgabriel.eventos.shared.exceptions.CustomException;
+import com.victorgabriel.eventos.shared.security.TokenConfig;
+import com.victorgabriel.eventos.shared.security.TokenInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping("/customers")
@@ -28,7 +32,11 @@ public class LoginCustomerController {
         if(!loginDTO.getPassword().equals(customerExists.getPassword())) throw new CustomException("Email/password incorrect", HttpStatus.UNAUTHORIZED);
 
         // se tudo tiver ok Gerar o Token
-        //senao gerar um Erro
-        return new JWTToken("TOKENCRIADO");
+        var SECONDS = 1000;
+        var MINUTES = 60 * SECONDS;
+        var expiresIn = new Date(System.currentTimeMillis() + MINUTES);
+        var token = TokenConfig.encode(new TokenInfo(loginDTO.getEmail(), expiresIn));
+
+        return token;
     }
 }

@@ -2,8 +2,10 @@ package com.victorgabriel.eventos.modules.customers.controllers;
 
 import com.victorgabriel.eventos.modules.customers.dto.JWTToken;
 import com.victorgabriel.eventos.modules.customers.dto.LoginDTO;
+import com.victorgabriel.eventos.modules.customers.entities.Customer;
 import com.victorgabriel.eventos.modules.customers.repositories.ICustomerRepository;
 import com.victorgabriel.eventos.shared.exceptions.CustomException;
+import com.victorgabriel.eventos.shared.security.PasswordUtils;
 import com.victorgabriel.eventos.shared.security.TokenConfig;
 import com.victorgabriel.eventos.shared.security.TokenInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,12 @@ public class LoginCustomerController {
     @PostMapping("/login")
     public JWTToken login(@RequestBody LoginDTO loginDTO) {
         //verificar se existe email no customer
-        var customerExists = this.customerRepository.findByEmail(loginDTO.getEmail());
+        Customer customerExists = this.customerRepository.findByEmail(loginDTO.getEmail());
         if(customerExists == null) throw new CustomException("Email/password incorrect", HttpStatus.UNAUTHORIZED);
 
         // se existir verificar a senha
-        if(!loginDTO.getPassword().equals(customerExists.getPassword())) throw new CustomException("Email/password incorrect", HttpStatus.UNAUTHORIZED);
+        boolean passwordEquals = PasswordUtils.matches(loginDTO.getPassword(), customerExists.getPassword());
+        if(!passwordEquals) throw new CustomException("Email/password incorrect", HttpStatus.UNAUTHORIZED);
 
         // se tudo tiver ok Gerar o Token
         var SECONDS = 1000;

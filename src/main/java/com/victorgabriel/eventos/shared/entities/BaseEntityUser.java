@@ -1,6 +1,7 @@
 package com.victorgabriel.eventos.shared.entities;
 
 import com.victorgabriel.eventos.shared.exceptions.CustomException;
+import com.victorgabriel.eventos.shared.security.PasswordUtils;
 import com.victorgabriel.eventos.shared.validations.ValidationUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,5 +33,9 @@ public class BaseEntityUser {
     public void setEmail(String email) {
         if(!ValidationUtils.validateEmail(email)) throw new CustomException("Email is Invalid", HttpStatus.UNPROCESSABLE_ENTITY);
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = PasswordUtils.encode(password);  // gerando uma senha criptografada
     }
 }

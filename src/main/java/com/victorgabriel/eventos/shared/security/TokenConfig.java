@@ -1,25 +1,45 @@
 package com.victorgabriel.eventos.shared.security;
 
 import com.victorgabriel.eventos.modules.customers.dto.JWTToken;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
+import java.util.Collections;
 
 public class TokenConfig {
 
+    private static final String SECRET_KEY = "AppEventsSpringBootAppEventsSpringBoot";
+
     public static JWTToken encode(TokenInfo tokenInfo) {
-        String secretKey = "AppEventsSpringBootAppEventsSpringBoot";
-        Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
+        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
         String jwt = Jwts.builder()
-                        .setSubject(tokenInfo.getSubject())  // passar usuario
+                        .setSubject(tokenInfo.getSubject())  // passar usuario por email
                         .setIssuer("EVENTS_APP")  // passar quem é o emissor
                         .setExpiration(tokenInfo.getExpiresIn())  // Definir tempo de expiraçao
                         .signWith(key, SignatureAlgorithm.HS256)   // passar uma assinatura
                         .compact();
 
         return new JWTToken("Bearer " + jwt);
+    }
+
+    public static Authentication decode(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        token = token.replace("Bearer", "");
+
+        Jws<Claims> claims = Jwts
+                .parserBuilder()
+                .setSigningKey(SECRET_KEY.getBytes())
+                .build().parseClaimsJws(token);
+
+        String subject = claims.getBody().getSubject();
+        return new UsernamePasswordAuthenticationToken(subject, null, Collections.emptyList());
     }
 }

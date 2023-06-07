@@ -16,8 +16,9 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/customers/").permitAll()
+                .antMatchers(HttpMethod.POST, "/customers/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/organizers/").permitAll()
-
+                .anyRequest().authenticated()
                 .and().addFilterBefore(new SecurityFilter(), UsernamePasswordAuthenticationFilter.class)
                 ;
 

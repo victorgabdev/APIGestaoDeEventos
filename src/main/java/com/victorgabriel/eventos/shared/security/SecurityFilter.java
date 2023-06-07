@@ -1,5 +1,7 @@
 package com.victorgabriel.eventos.shared.security;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -13,11 +15,12 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String headerToken = request.getHeader("Authorization");
+        SecurityContextHolder.getContext().setAuthentication(null);
 
         if(headerToken != null) {
-            String auth = headerToken.replace("Bearer ", "");
-            if(auth.equals("tokenDeTesteUlala")) {
-                // alguma coisa
+            Authentication auth = TokenConfig.decode(request);
+            if(auth != null) {
+                SecurityContextHolder.getContext().setAuthentication(auth);
             } else {
                 response.setStatus(401);
                 return;

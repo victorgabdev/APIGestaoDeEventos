@@ -1,10 +1,8 @@
 #   API de Gestão de Eventos
 
----
 
 ## Índice
 
----
 
 - [Sobre](#sobre)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
@@ -15,7 +13,6 @@
 
 ## Sobre
 
----
 
 O objetivo desta API é criar um software que possibilite ao usuário fazer compras de um evento.
 Nesse app, um **evento** é cadastrado por um **organizador** e, em seguida, um **cliente** cadastrado no app pode **comprar** um ticket para um evento que também precisa estar cadastrado na API.
@@ -23,7 +20,6 @@ Ela foi criada utilizando os princípios da *Clean Architecture*.
 
 ## Tecnologias Utilizadas
 
----
 
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - [Java 17](https://docs.oracle.com/en/java/javase/17/)
@@ -38,12 +34,9 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ## Arquitetura da API
 
----
 
 ![dominioGestaoDeEventos](https://github.com/victorgabdev/APIGestaoDeEventos/assets/75862737/fdbc5836-5183-4cc7-84e3-220e89931b73)
 ## Como a API Funciona
-
----
 
 Essa API tem quatro entidades na sua camada de domínio, são elas:
 Eventos (events), Clientes (customers), Organizadores (organizers) e Vendas (sales).
@@ -58,7 +51,6 @@ Essa funcionalidade só é possível por causa da utilização do Spring Securit
 
 ## Tabelas no banco de Dados
 
----
 
 #### Customers:
 

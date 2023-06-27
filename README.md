@@ -10,7 +10,7 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Arquitetura da API](#arquitetura-da-api)
 - [Como a API Funciona](#como-a-api-funciona)
-- [Screenshots no Insomnia](#tabelas-no-banco-de-dados)
+- [Tabelas no Banco de Dados](#tabelas-no-banco-de-dados)
 
 
 ## Sobre

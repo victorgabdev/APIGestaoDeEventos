@@ -10,7 +10,7 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Arquitetura da API](#arquitetura-da-api)
 - [Como a API Funciona](#como-a-api-funciona)
-- [Screenshots no Insomnia](#screenshots-no-insomnia)
+- [Screenshots no Insomnia](#tabelas-no-banco-de-dados)
 
 
 ## Sobre
@@ -45,14 +45,14 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 ---
 
-Essa api tem quatro entidades na sua camada de domínio, são elas:
+Essa API tem quatro entidades na sua camada de domínio, são elas:
 Eventos (events), Clientes (customers), Organizadores (organizers) e Vendas (sales).
 Ela é capaz de fazer um CRUD para events, customers, organizers e sales.
 
 
 > Obs: CRUD -> Create, Read, Update, Delete.
 
-A api não permite que um usário crie um evento, ou seja, somentte um organizer pode cadastrar um evento.
+A API não permite que um usário crie um evento, ou seja, somente um organizer pode cadastrar um evento.
 Essa funcionalidade só é possível por causa da utilização do Spring Security.
 
 

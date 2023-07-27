@@ -14,9 +14,8 @@
 ## Sobre
 
 
-O objetivo desta API é criar um software que possibilite ao usuário fazer compras de um evento.
-Nesse app, um **evento** é cadastrado por um **organizador** e, em seguida, um **cliente** cadastrado no app pode **comprar** um ticket para um evento que também precisa estar cadastrado na API.
-Ela foi criada utilizando os princípios da *Clean Architecture*.
+A API de Gestão de Eventos tem como objetivo possibilitar ao usuário a compra de ingressos para eventos. Neste aplicativo, um **evento** é cadastrado por um **organizador** e, em seguida, um **cliente** cadastrado no aplicativo pode comprar um ingresso para um evento que também precisa estar cadastrado na API. A API foi desenvolvida utilizando os princípios da *Clean Architecture*.
+
 
 ## Tecnologias Utilizadas
 
